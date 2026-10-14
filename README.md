@@ -1,5 +1,7 @@
 # 🎈 拼音乐园 (PinYin Kids)
 
+> 🚀 **官方在线访问地址**：[https://pinyin-e3x.pages.dev/](https://pinyin-e3x.pages.dev/)
+
 专为孩子设计的汉语拼音启蒙学习网站。基于 **Vue 3 + Tailwind CSS** 开发，纯静态打包，零服务端依赖，支持一键免费托管发布至 **Cloudflare Pages**。
 
 ---
