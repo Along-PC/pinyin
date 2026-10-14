@@ -51,7 +51,7 @@
         <span class="text-base sm:text-lg">{{ item.icon }}</span>
         <span>读作:</span>
         <span class="px-2 py-0.5 bg-white/90 rounded-lg text-amber-600 border border-amber-200 shadow-xs font-black">
-          {{ item.sound }}
+          {{ item.spokenText }}
         </span>
         <span class="text-xs text-amber-500 group-hover:scale-125 transition-transform">🔊</span>
       </div>

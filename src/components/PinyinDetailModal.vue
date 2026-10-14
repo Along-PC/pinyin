@@ -45,7 +45,7 @@
 
             <div class="text-xl sm:text-2xl font-black text-gray-800 flex items-center gap-2">
               <span>读音:</span>
-              <span class="text-amber-600 text-3xl font-extrabold">{{ item.sound }}</span>
+              <span class="text-amber-600 text-3xl font-extrabold">{{ item.spokenText }}</span>
             </div>
 
             <!-- 发音按钮组 -->
@@ -55,7 +55,7 @@
                 class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-2xl shadow-md shadow-amber-200 text-sm flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
               >
                 <span>🔊</span>
-                <span>标准读音</span>
+                <span>{{ item.category === 'shengmu' ? '呼读示范' : '标准读音' }}</span>
               </button>
               <button
                 @click="speakCurrent(0.6)"
@@ -67,6 +67,10 @@
             </div>
           </div>
         </div>
+
+        <p v-if="item.category === 'shengmu'" class="text-xs text-gray-600 leading-relaxed">
+          这里播放声母的呼读示范。拼读时声母要轻、短，不要把后面的辅助元音一起拼进去。
+        </p>
 
         <!-- 记忆口诀卡片 -->
         <div class="bg-sky-50 rounded-2xl p-4 border border-sky-200 flex items-center justify-between gap-3">
@@ -91,11 +95,12 @@
           <div class="flex items-center justify-between">
             <h3 class="text-base font-black text-gray-800 flex items-center gap-1.5">
               <span>🎵</span>
-              <span>四声调练习 (点击单独发音)</span>
+              <span>声调练习 (点击单独发音)</span>
             </h3>
             <span class="text-xs text-amber-600 font-medium">一声平、二声扬、三声拐弯、四声降</span>
           </div>
 
+          <p v-if="item.toneNote" class="text-xs text-gray-600 leading-relaxed">{{ item.toneNote }}</p>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <div
               v-for="t in item.tones"
@@ -170,8 +175,9 @@
 </template>
 
 <script setup>
+import { onUnmounted, watch } from 'vue'
 import FourLineGrid from './FourLineGrid.vue'
-import { speakPinyin, speakTone, speakMnemonic } from '../utils/audio'
+import { speakPinyin, speakPinyinItem, speakTone, speakMnemonic, stopSpeech } from '../utils/audio'
 
 const props = defineProps({
   item: {
@@ -182,10 +188,12 @@ const props = defineProps({
 
 defineEmits(['close', 'prev', 'next'])
 
+watch(() => props.item, stopSpeech)
+onUnmounted(stopSpeech)
+
 function speakCurrent(rate = 0.85) {
   if (!props.item) return
-  const text = props.item.sound || props.item.spokenText || props.item.letter
-  speakPinyin(text, { rate })
+  speakPinyinItem(props.item, { rate })
 }
 
 function speakMnemonicText() {
@@ -194,7 +202,7 @@ function speakMnemonicText() {
 }
 
 function speakToneItem(t) {
-  speakTone(t.tone, t.word)
+  speakTone(t.tone)
 }
 
 function speakWord(w) {

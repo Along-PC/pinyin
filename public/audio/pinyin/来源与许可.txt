@@ -1,0 +1,15 @@
+普通话单音节录音
+
+发音者：Chen Wang
+来源项目：audio-cmn
+维护与音频处理：Hugo Lopez（PLIDAM / INALCO）、Nicolas Vion
+项目地址：https://github.com/hugolpz/audio-cmn
+固定版本：ff9ed3d0c631195bd2c06f39450f3264c7124040
+原始目录：64k/syllabs/cmn-{拼音}{声调}.mp3
+
+上游声明音节录音采用 CC BY-SA 许可，未注明许可版本。
+上游许可声明：https://github.com/hugolpz/audio-cmn#license
+录音保持原始文件内容，仅移除文件名的 cmn- 前缀。
+逐文件来源地址和 SHA-256 校验值见 manifest.json。
+播放时的慢速由浏览器保留音高的变速功能完成，文件本身未修改。
+本许可说明仅针对此目录的音频素材。

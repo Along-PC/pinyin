@@ -70,7 +70,7 @@
         <div class="mt-6 min-h-[32px] text-center">
           <div v-if="feedback === 'correct'" class="text-emerald-600 font-black text-lg flex items-center justify-center gap-1.5 animate-bounce">
             <span>🎉</span>
-            <span>答对啦！你真棒！读作: {{ currentQuestion.target.sound }} ({{ currentQuestion.target.mnemonic }})</span>
+            <span>答对啦！你真棒！读作: {{ currentQuestion.target.spokenText }} ({{ currentQuestion.target.mnemonic }})</span>
           </div>
           <div v-else-if="feedback === 'wrong'" class="text-rose-500 font-bold text-base flex items-center justify-center gap-1">
             <span>💪</span>
@@ -102,8 +102,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { soundEffects, speakPinyinItem } from '../utils/audio'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { soundEffects, speakPinyinItem, stopSpeech } from '../utils/audio'
 
 const props = defineProps({
   list: {
@@ -120,8 +120,26 @@ const currentQuestion = ref(null)
 const selectedOpt = ref(null)
 const answered = ref(false)
 const feedback = ref(null)
+const pendingTimers = new Set()
+
+function schedule(callback, delay) {
+  const timer = setTimeout(() => {
+    pendingTimers.delete(timer)
+    callback()
+  }, delay)
+  pendingTimers.add(timer)
+}
+
+function clearPendingSounds() {
+  pendingTimers.forEach(clearTimeout)
+  pendingTimers.clear()
+  stopSpeech()
+}
+
+onUnmounted(clearPendingSounds)
 
 function generateQuestion() {
+  clearPendingSounds()
   if (!props.list || props.list.length < 4) return
   answered.value = false
   selectedOpt.value = null
@@ -149,7 +167,7 @@ function generateQuestion() {
   }
 
   // 延迟自动发音
-  setTimeout(() => {
+  schedule(() => {
     playTargetSound()
   }, 300)
 }
@@ -171,7 +189,7 @@ function handleSelect(opt) {
     streak.value += 1
     soundEffects.playSuccess()
 
-    setTimeout(() => {
+    schedule(() => {
       generateQuestion()
     }, 1800)
   } else {
@@ -180,7 +198,7 @@ function handleSelect(opt) {
     soundEffects.playWrong()
 
     // 允许孩子再次选择
-    setTimeout(() => {
+    schedule(() => {
       answered.value = false
       feedback.value = null
     }, 1200)

@@ -1,82 +1,6 @@
 // 语音合成与交互音效工具
 
-// 拼音到标准普通话发音汉字的最优映射字典（确保100%按中文拼音发音，杜绝被误读为英文字母）
-export const PINYIN_AUDIO_MAP = {
-  // 声母 (23个)
-  'b': '玻',
-  'p': '坡',
-  'm': '摸',
-  'f': '佛',
-  'd': '得',
-  't': '特',
-  'n': '讷',
-  'l': '勒',
-  'g': '哥',
-  'k': '科',
-  'h': '喝',
-  'j': '鸡',
-  'q': '七',
-  'x': '西',
-  'zh': '知',
-  'ch': '吃',
-  'sh': '狮',
-  'r': '日',
-  'z': '资',
-  'c': '疵',
-  's': '思',
-  'y': '衣',
-  'w': '乌',
-
-  // 单韵母 (6个) - 特别注意：a必须映射为“啊”，不能用多音字“阿”或英文“a”
-  'a': '啊',
-  'o': '喔',
-  'e': '鹅',
-  'i': '衣',
-  'u': '乌',
-  'ü': '迂',
-
-  // 复韵母 (9个)
-  'ai': '挨',
-  'ei': '诶',
-  'ui': '威',
-  'ao': '熬',
-  'ou': '欧',
-  'iu': '优',
-  'ie': '椰',
-  'üe': '约',
-  'er': '儿',
-
-  // 前鼻韵母 (5个)
-  'an': '安',
-  'en': '恩',
-  'in': '因',
-  'un': '温',
-  'ün': '晕',
-
-  // 后鼻韵母 (4个)
-  'ang': '昂',
-  'eng': '鞥',
-  'ing': '英',
-  'ong': '轰',
-
-  // 整体认读音节 (16个)
-  'zhi': '知',
-  'chi': '吃',
-  'shi': '狮',
-  'ri': '日',
-  'zi': '资',
-  'ci': '疵',
-  'si': '思',
-  'yi': '衣',
-  'wu': '乌',
-  'yu': '迂',
-  'ye': '椰',
-  'yue': '约',
-  'yuan': '冤',
-  'yin': '因',
-  'yun': '晕',
-  'ying': '鹰'
-}
+import { PINYIN_RECORDINGS, getToneRecording } from '../data/pinyinAudio.js'
 
 // 播放交互音效（利用Web Audio API生成可爱的儿童音效，无需外部音频资源）
 class SoundEffect {
@@ -181,87 +105,101 @@ function getChineseVoice() {
     (v.name.includes('婷婷') || v.name.includes('Tingting') || v.name.includes('Google 普通话') || v.name.includes('Xiaoxiao') || v.name.includes('Yaoyao'))
   ) 
   || voices.find(v => v.lang === 'zh-CN' || v.lang === 'zh_CN')
-  || voices.find(v => v.lang.startsWith('zh'))
+  || voices.find(v => /^cmn(?:[-_]|$)/i.test(v.lang))
 
   return cachedZhVoice
 }
 
 if (typeof window !== 'undefined' && window.speechSynthesis) {
-  window.speechSynthesis.onvoiceschanged = () => {
+  window.speechSynthesis.addEventListener('voiceschanged', () => {
     cachedZhVoice = null
     getChineseVoice()
+  })
+}
+
+// 拼音录音与整词朗读共用一个播放通道，避免快速点击时声音叠加。
+let activeAudio = null
+
+export function stopSpeech() {
+  if (activeAudio) {
+    activeAudio.pause()
+    activeAudio.currentTime = 0
+    activeAudio = null
+  }
+  if (typeof window !== 'undefined') window.speechSynthesis?.cancel()
+}
+
+function playRecording(recording, options = {}) {
+  stopSpeech()
+  if (typeof Audio === 'undefined') return Promise.resolve(false)
+  const base = import.meta.env?.BASE_URL || '/'
+  const audio = new Audio(`${base}audio/pinyin/${recording}.mp3`)
+  activeAudio = audio
+  // 浏览器保留音高，只改变时长，不通过升降音高模拟声调。
+  audio.preservesPitch = true
+  audio.webkitPreservesPitch = true
+  audio.mozPreservesPitch = true
+  audio.playbackRate = options.rate < 0.8 ? 0.7 : 1
+  audio.onended = () => { if (activeAudio === audio) activeAudio = null }
+  try {
+    return Promise.resolve(audio.play()).then(() => true).catch(error => {
+      if (activeAudio !== audio) return false
+      activeAudio = null
+      console.error('拼音录音播放失败，请重试：', error)
+      return false
+    })
+  } catch (error) {
+    activeAudio = null
+    console.error('拼音录音播放失败，请重试：', error)
+    return Promise.resolve(false)
   }
 }
 
-/**
- * 朗读文本（强制使用中文引擎）
- * @param {string} text 要朗读的文本
- * @param {Object} options 选项
- */
+/** 朗读中文例词和口诀；拼音输入优先匹配独立录音。 */
 export function speakPinyin(text, options = {}) {
-  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+  if (typeof text !== 'string' || !text.trim()) return
+  const key = text.trim().toLowerCase().normalize('NFC')
+  const recording = getToneRecording(key) || PINYIN_RECORDINGS[key]
+  if (recording) return playRecording(recording, options)
+  // 未知拉丁拼音不能交给中文文本引擎猜读。
+  if (!/[\u3400-\u9fff]/u.test(text)) return
+  if (typeof window === 'undefined' || !window.speechSynthesis) {
     console.warn('当前浏览器不支持语音合成功能')
     return
   }
-
+  stopSpeech()
   try {
-    window.speechSynthesis.cancel()
-
-    // 强化过滤：如果传入的是纯英文字符，通过字典映射为标准发音汉字
-    let cleanText = text
-    if (typeof text === 'string') {
-      const lower = text.toLowerCase().trim()
-      if (PINYIN_AUDIO_MAP[lower]) {
-        cleanText = PINYIN_AUDIO_MAP[lower]
-      }
-    }
-
-    const utterance = new SpeechSynthesisUtterance(cleanText)
+    const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = 'zh-CN'
-    utterance.rate = options.rate || 0.82
-    utterance.pitch = options.pitch || 1.05
+    utterance.rate = options.rate ?? 0.85
+    utterance.pitch = 1
     utterance.volume = 1
-
     const voice = getChineseVoice()
-    if (voice) {
-      utterance.voice = voice
-    }
-
+    if (voice) utterance.voice = voice
     window.speechSynthesis.speak(utterance)
-  } catch (err) {
-    console.error('语音朗读失败:', err)
+  } catch (error) {
+    console.error('语音朗读失败：', error)
   }
 }
 
-/**
- * 朗读拼音字母卡片
- * @param {Object} item 拼音数据项
- */
-export function speakPinyinItem(item) {
-  soundEffects.playPop()
-  // 核心修复：优先从 PINYIN_AUDIO_MAP 中取最权威的汉语发音字（如 a 绝对读“啊”）
-  const key = item.letter ? item.letter.toLowerCase() : item.id
-  const readText = PINYIN_AUDIO_MAP[key] || item.sound || item.spokenText || item.letter
-  speakPinyin(readText, { rate: 0.8 })
+/** 朗读卡片，列表、详情和听音测验使用同一套录音。 */
+export function speakPinyinItem(item, options = {}) {
+  const key = (item?.letter || item?.id || '').toLowerCase().normalize('NFC')
+  const recording = PINYIN_RECORDINGS[key]
+  if (!recording) return Promise.resolve(false)
+  return playRecording(recording, options)
 }
 
-/**
- * 朗读记忆口诀
- * @param {Object} item 拼音数据项
- */
+/** 朗读口诀时将拉丁字母替换为中文读音提示，避免英文逐字母朗读。 */
 export function speakMnemonic(item) {
-  soundEffects.playPop()
-  speakPinyin(item.mnemonic, { rate: 0.85 })
+  const pronunciation = item.sound || ''
+  const text = item.mnemonic.replace(/[a-zü]+/gi, () => pronunciation)
+  speakPinyin(text, { rate: 0.85 })
 }
 
-/**
- * 朗读声调（配例字保证音调精准）
- * @param {string} tone 拼音声调符号，如 'ā'
- * @param {string} word 关联词语，如 '阿姨'
- */
-export function speakTone(tone, word) {
-  soundEffects.playPop()
-  // 避免将带调拉丁字符直接交给TTS导致被按英文读，优先读中文例字或带标点的情感汉字
-  const text = word || tone
-  speakPinyin(text, { rate: 0.82 })
+/** 按带调拼音播放独立录音，例词仅作展示，不参与声调匹配。 */
+export function speakTone(tone) {
+  const recording = getToneRecording(tone)
+  if (!recording) return Promise.resolve(false)
+  return playRecording(recording)
 }

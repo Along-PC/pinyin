@@ -324,7 +324,7 @@ export const PINYIN_LIST = [
     category: 'shengmu',
     categoryName: '声母',
     sound: '日',
-    spokenText: 'rì',
+    spokenText: 'rī',
     mnemonic: '一株幼芽 r r r，太阳照大地',
     icon: '🌱',
     strokeCount: 2,
@@ -434,15 +434,15 @@ export const PINYIN_LIST = [
     category: 'dan-yunmu',
     categoryName: '单韵母',
     sound: '啊',
-    spokenText: '啊',
+    spokenText: 'ā',
     mnemonic: '张大嘴巴 a a a，阿姨抱小宝',
     icon: '👧',
     strokeCount: 2,
     tones: [
       { tone: 'ā', mark: '一声平', word: '阿姨', char: '阿' },
-      { tone: 'á', mark: '二声扬', word: '啊？（疑问）', char: '啊' },
-      { tone: 'ǎ', mark: '三声拐弯', word: '啊！（明白）', char: '啊' },
-      { tone: 'à', mark: '四声降', word: '啊！（赞叹）', char: '啊' }
+      { tone: 'á', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'ǎ', mark: '三声拐弯', word: '声调练习', char: '' },
+      { tone: 'à', mark: '四声降', word: '声调练习', char: '' }
     ],
     words: [
       { char: '爸', pinyin: 'bà', word: '爸爸', icon: '👨' },
@@ -463,10 +463,10 @@ export const PINYIN_LIST = [
     icon: '🐓',
     strokeCount: 1,
     tones: [
-      { tone: 'ō', mark: '一声平', word: '喔喔叫', char: '喔' },
-      { tone: 'ó', mark: '二声扬', word: '哦？（惊讶）', char: '哦' },
-      { tone: 'ǒ', mark: '三声拐弯', word: '我（同韵母）', char: '我' },
-      { tone: 'ò', mark: '四声降', word: '哦！（答应）', char: '哦' }
+      { tone: 'ō', mark: '一声平', word: '声调练习', char: '' },
+      { tone: 'ó', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'ǒ', mark: '三声拐弯', word: '声调练习', char: '' },
+      { tone: 'ò', mark: '四声降', word: '声调练习', char: '' }
     ],
     words: [
       { char: '波', pinyin: 'bō', word: '波浪', icon: '🌊' },
@@ -487,10 +487,10 @@ export const PINYIN_LIST = [
     icon: '🦢',
     strokeCount: 1,
     tones: [
-      { tone: 'ē', mark: '一声平', word: '阿胶', char: '阿' },
+      { tone: 'ē', mark: '一声平', word: '声调练习', char: '' },
       { tone: 'é', mark: '二声扬', word: '白鹅', char: '鹅' },
       { tone: 'ě', mark: '三声拐弯', word: '恶心', char: '恶' },
-      { tone: 'è', mark: '四声降', word: '肚子饿', char: '饿' }
+      { tone: 'è', mark: '四声降', word: '饥饿', char: '饿' }
     ],
     words: [
       { char: '鹅', pinyin: 'é', word: '白鹅', icon: '🦢' },
@@ -554,7 +554,7 @@ export const PINYIN_LIST = [
     category: 'dan-yunmu',
     categoryName: '单韵母',
     sound: '迂',
-    spokenText: 'yū',
+    spokenText: 'ǖ',
     mnemonic: '小鱼吐泡 ü ü ü，圆圆小嘴巴',
     icon: '🐟',
     strokeCount: 3,
@@ -585,7 +585,7 @@ export const PINYIN_LIST = [
     icon: '🥬',
     tones: [
       { tone: 'āi', mark: '一声平', word: '挨着', char: '挨' },
-      { tone: 'ái', mark: '二声扬', word: '矮小', char: '癌' },
+      { tone: 'ái', mark: '二声扬', word: '挨打', char: '挨' },
       { tone: 'ǎi', mark: '三声拐弯', word: '高矮', char: '矮' },
       { tone: 'ài', mark: '四声降', word: '爱心', char: '爱' }
     ],
@@ -607,10 +607,10 @@ export const PINYIN_LIST = [
     mnemonic: '用力砍树 ei ei ei，累得流大汗',
     icon: '🪓',
     tones: [
-      { tone: 'ēi', mark: '一声平', word: '诶（打招呼）', char: '诶' },
-      { tone: 'éi', mark: '二声扬', word: '欸？', char: '欸' },
-      { tone: 'ěi', mark: '三声拐弯', word: '欸（叹息）', char: '欸' },
-      { tone: 'èi', mark: '四声降', word: '贝壳', char: '贝' }
+      { tone: 'ēi', mark: '一声平', word: '声调练习', char: '' },
+      { tone: 'éi', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'ěi', mark: '三声拐弯', word: '声调练习', char: '' },
+      { tone: 'èi', mark: '四声降', word: '声调练习', char: '' }
     ],
     words: [
       { char: '杯', pinyin: 'bēi', word: '水杯', icon: '🥛' },
@@ -621,12 +621,13 @@ export const PINYIN_LIST = [
   },
   {
     id: 'ui',
+    toneNote: 'ui 是 uei 的省写形式，独立示范音节写作 wei；声调标在 i 上。',
     letter: 'ui',
     uppercase: 'UI',
     category: 'fu-yunmu',
     categoryName: '复韵母',
     sound: '微',
-    spokenText: 'uī',
+    spokenText: 'wēi',
     mnemonic: '围上围巾 ui ui ui，不怕刮大风',
     icon: '🧣',
     tones: [
@@ -653,7 +654,7 @@ export const PINYIN_LIST = [
     mnemonic: '穿上棉袄 ao ao ao，暖和不怕冷',
     icon: '🧥',
     tones: [
-      { tone: 'āo', mark: '一声平', word: '棉袄', char: '袄' },
+      { tone: 'āo', mark: '一声平', word: '凹陷', char: '凹' },
       { tone: 'áo', mark: '二声扬', word: '熬夜', char: '熬' },
       { tone: 'ǎo', mark: '三声拐弯', word: '棉袄', char: '袄' },
       { tone: 'ào', mark: '四声降', word: '骄傲', char: '傲' }
@@ -677,9 +678,9 @@ export const PINYIN_LIST = [
     icon: '🪷',
     tones: [
       { tone: 'ōu', mark: '一声平', word: '海鸥', char: '鸥' },
-      { tone: 'óu', mark: '二声扬', word: '欧洲', char: '欧' },
+      { tone: 'óu', mark: '二声扬', word: '声调练习', char: '' },
       { tone: 'ǒu', mark: '三声拐弯', word: '莲藕', char: '藕' },
-      { tone: 'òu', mark: '四声降', word: '生偶', char: '怄' }
+      { tone: 'òu', mark: '四声降', word: '怄气', char: '怄' }
     ],
     words: [
       { char: '狗', pinyin: 'gǒu', word: '小狗', icon: '🐕' },
@@ -690,19 +691,20 @@ export const PINYIN_LIST = [
   },
   {
     id: 'iu',
+    toneNote: 'iu 是 iou 的省写形式，独立示范音节写作 you；声调标在 u 上。',
     letter: 'iu',
     uppercase: 'IU',
     category: 'fu-yunmu',
     categoryName: '复韵母',
     sound: '优',
-    spokenText: 'iū',
+    spokenText: 'yōu',
     mnemonic: '跳水游泳 iu iu iu，健美强壮',
     icon: '🏊',
     tones: [
       { tone: 'iū', mark: '一声平', word: '优秀', char: '优' },
       { tone: 'iú', mark: '二声扬', word: '油灯', char: '油' },
-      { tone: 'iǔ', mark: '三声拐弯', word: '九月', char: '九' },
-      { tone: 'iù', mark: '四声降', word: '秀丽', char: '秀' }
+      { tone: 'iǔ', mark: '三声拐弯', word: '朋友', char: '友' },
+      { tone: 'iù', mark: '四声降', word: '幼小', char: '幼' }
     ],
     words: [
       { char: '牛', pinyin: 'niú', word: '小牛', icon: '🐮' },
@@ -718,7 +720,7 @@ export const PINYIN_LIST = [
     category: 'fu-yunmu',
     categoryName: '复韵母',
     sound: '椰',
-    spokenText: 'iē',
+    spokenText: 'yē',
     mnemonic: '一棵椰树 ie ie ie，椰子水清甜',
     icon: '🥥',
     tones: [
@@ -746,9 +748,9 @@ export const PINYIN_LIST = [
     icon: '🌙',
     tones: [
       { tone: 'üē', mark: '一声平', word: '约定', char: '约' },
-      { tone: 'üé', mark: '二声扬', word: '月亮', char: '月' },
-      { tone: 'üě', mark: '三声拐弯', word: '踊跃', char: '跃' },
-      { tone: 'üè', mark: '四声降', word: '音乐', char: '乐' }
+      { tone: 'üé', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'üě', mark: '三声拐弯', word: '声调练习', char: '' },
+      { tone: 'üè', mark: '四声降', word: '月亮', char: '月' }
     ],
     words: [
       { char: '月', pinyin: 'yuè', word: '月儿', icon: '🌜' },
@@ -768,7 +770,7 @@ export const PINYIN_LIST = [
     mnemonic: '小小耳朵 er er er，听听大家说',
     icon: '👂',
     tones: [
-      { tone: 'ēr', mark: '一声平', word: '儿话', char: '儿' },
+      { tone: 'ēr', mark: '一声平', word: '声调练习', char: '' },
       { tone: 'ér', mark: '二声扬', word: '儿童', char: '儿' },
       { tone: 'ěr', mark: '三声拐弯', word: '耳朵', char: '耳' },
       { tone: 'èr', mark: '四声降', word: '数字二', char: '二' }
@@ -794,7 +796,7 @@ export const PINYIN_LIST = [
     icon: '🏛️',
     tones: [
       { tone: 'ān', mark: '一声平', word: '平安', char: '安' },
-      { tone: 'án', mark: '二声扬', word: '鞍马', char: '鞍' },
+      { tone: 'án', mark: '二声扬', word: '声调练习', char: '' },
       { tone: 'ǎn', mark: '三声拐弯', word: '俺们', char: '俺' },
       { tone: 'àn', mark: '四声降', word: '河岸', char: '岸' }
     ],
@@ -817,8 +819,8 @@ export const PINYIN_LIST = [
     icon: '🔔',
     tones: [
       { tone: 'ēn', mark: '一声平', word: '感恩', char: '恩' },
-      { tone: 'én', mark: '二声扬', word: '嗯？', char: '嗯' },
-      { tone: 'ěn', mark: '三声拐弯', word: '摁住', char: '摁' },
+      { tone: 'én', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'ěn', mark: '三声拐弯', word: '声调练习', char: '' },
       { tone: 'èn', mark: '四声降', word: '摁铃', char: '摁' }
     ],
     words: [
@@ -853,6 +855,7 @@ export const PINYIN_LIST = [
   },
   {
     id: 'un',
+    toneNote: 'un 是 uen 的省写形式，独立示范音节写作 wen；声调标在 u 上。',
     letter: 'un',
     uppercase: 'UN',
     category: 'qian-yunmu',
@@ -870,7 +873,7 @@ export const PINYIN_LIST = [
     words: [
       { char: '春', pinyin: 'chūn', word: '春天', icon: '🌱' },
       { char: '轮', pinyin: 'lún', word: '轮子', icon: '🛞' },
-      { char: '军', pinyin: 'jūn', word: '军人', icon: '🎖️' }
+      { char: '村', pinyin: 'cūn', word: '村庄', icon: '🏡' }
     ],
     tips: '先发 u，随后舌尖抵上齿龈，软腭下垂出鼻音。'
   },
@@ -906,14 +909,14 @@ export const PINYIN_LIST = [
     category: 'hou-yunmu',
     categoryName: '后鼻韵母',
     sound: '昂',
-    spokenText: 'áng',
+    spokenText: 'āng',
     mnemonic: '羚羊奔跑 ang ang ang，昂首挺胸膛',
     icon: '🐐',
     tones: [
       { tone: 'āng', mark: '一声平', word: '肮脏', char: '肮' },
-      { tone: 'áng', mark: '二声扬', word: '昂贵', char: '昂' },
-      { tone: 'ǎng', mark: '三声拐弯', word: '盎然', char: '盎' },
-      { tone: 'àng', mark: '四声降', word: '盎司', char: '盎' }
+      { tone: 'áng', mark: '二声扬', word: '昂首', char: '昂' },
+      { tone: 'ǎng', mark: '三声拐弯', word: '声调练习', char: '' },
+      { tone: 'àng', mark: '四声降', word: '盎然', char: '盎' }
     ],
     words: [
       { char: '羊', pinyin: 'yáng', word: '小羊', icon: '🐑' },
@@ -924,6 +927,7 @@ export const PINYIN_LIST = [
   },
   {
     id: 'eng',
+    toneNote: 'eng 是后鼻韵母，末尾由舌根抵住软腭发 ng，注意和前鼻音 en 区分。',
     letter: 'eng',
     uppercase: 'ENG',
     category: 'hou-yunmu',
@@ -933,10 +937,10 @@ export const PINYIN_LIST = [
     mnemonic: '点亮台灯 eng eng eng，夜晚放光明',
     icon: '💡',
     tones: [
-      { tone: 'ēng', mark: '一声平', word: '哼唧', char: '哼' },
-      { tone: 'éng', mark: '二声扬', word: '恒久', char: '恒' },
-      { tone: 'ěng', mark: '三声拐弯', word: '整齐', char: '整' },
-      { tone: 'èng', mark: '四声降', word: '硬蹦', char: '硬' }
+      { tone: 'ēng', mark: '一声平', word: '声调练习', char: '' },
+      { tone: 'éng', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'ěng', mark: '三声拐弯', word: '声调练习', char: '' },
+      { tone: 'èng', mark: '四声降', word: '声调练习', char: '' }
     ],
     words: [
       { char: '风', pinyin: 'fēng', word: '微风', icon: '🍃' },
@@ -959,7 +963,7 @@ export const PINYIN_LIST = [
       { tone: 'īng', mark: '一声平', word: '英雄', char: '英' },
       { tone: 'íng', mark: '二声扬', word: '荧光', char: '荧' },
       { tone: 'ǐng', mark: '三声拐弯', word: '影子', char: '影' },
-      { tone: 'ìng', mark: '四声降', word: '应该', char: '应' }
+      { tone: 'ìng', mark: '四声降', word: '回应', char: '应' }
     ],
     words: [
       { char: '星', pinyin: 'xīng', word: '繁星', icon: '🌟' },
@@ -970,19 +974,20 @@ export const PINYIN_LIST = [
   },
   {
     id: 'ong',
+    toneNote: 'ong 不独立成音节，借助 dong 示范韵母和四声；听读时注意末尾的后鼻音 ng。',
     letter: 'ong',
     uppercase: 'ONG',
     category: 'hou-yunmu',
     categoryName: '后鼻韵母',
     sound: '轰',
-    spokenText: 'hōng',
+    spokenText: 'dōng',
     mnemonic: '敲响闹钟 ong ong ong，清脆当当当',
     icon: '⏰',
     tones: [
-      { tone: 'ōng', mark: '一声平', word: '嗡嗡', char: '嗡' },
-      { tone: 'óng', mark: '二声扬', word: '红旗', char: '红' },
-      { tone: 'ǒng', mark: '三声拐弯', word: '轰轰', char: '轰' },
-      { tone: 'òng', mark: '四声降', word: '轰隆', char: '轰' }
+      { tone: 'dōng', mark: '一声平', word: '冬天', char: '冬' },
+      { tone: 'dóng', mark: '二声扬', word: '声调练习', char: '' },
+      { tone: 'dǒng', mark: '三声拐弯', word: '懂得', char: '懂' },
+      { tone: 'dòng', mark: '四声降', word: '动物', char: '动' }
     ],
     words: [
       { char: '红', pinyin: 'hóng', word: '红花', icon: '🌺' },
@@ -1012,7 +1017,7 @@ export const PINYIN_LIST = [
     words: [
       { char: '枝', pinyin: 'zhī', word: '树枝', icon: '🌿' },
       { char: '指', pinyin: 'zhǐ', word: '手指', icon: '👆' },
-      { char: '字', pinyin: 'zhì', word: '通知', icon: '📢' }
+      { char: '智', pinyin: 'zhì', word: '智慧', icon: '📢' }
     ],
     tips: '整体认读音节，不用拼，直接读出声，声调标在 i 上。'
   },
@@ -1064,6 +1069,7 @@ export const PINYIN_LIST = [
   },
   {
     id: 'ri',
+    toneNote: 'ri 的常用读音为第四声 rì，如“日”。',
     letter: 'ri',
     uppercase: 'RI',
     category: 'zhengti',
@@ -1073,9 +1079,6 @@ export const PINYIN_LIST = [
     mnemonic: '红日东升 ri ri ri，直接读出日',
     icon: '🌅',
     tones: [
-      { tone: 'rī', mark: '一声平', word: '日（轻）', char: '日' },
-      { tone: 'rí', mark: '二声扬', word: '日（扬）', char: '日' },
-      { tone: 'rǐ', mark: '三声拐弯', word: '日（拐）', char: '日' },
       { tone: 'rì', mark: '四声降', word: '红日', char: '日' }
     ],
     words: [
@@ -1087,6 +1090,7 @@ export const PINYIN_LIST = [
   },
   {
     id: 'zi',
+    toneNote: 'zi 的常用带调读音为 zī、zǐ、zì。',
     letter: 'zi',
     uppercase: 'ZI',
     category: 'zhengti',
@@ -1097,7 +1101,6 @@ export const PINYIN_LIST = [
     icon: '📝',
     tones: [
       { tone: 'zī', mark: '一声平', word: '姿势', char: '姿' },
-      { tone: 'zí', mark: '二声扬', word: '仔细', char: '仔' },
       { tone: 'zǐ', mark: '三声拐弯', word: '紫色', char: '紫' },
       { tone: 'zì', mark: '四声降', word: '文字', char: '字' }
     ],
@@ -1133,6 +1136,7 @@ export const PINYIN_LIST = [
   },
   {
     id: 'si',
+    toneNote: 'si 的常用带调读音为 sī、sǐ、sì。',
     letter: 'si',
     uppercase: 'SI',
     category: 'zhengti',
@@ -1143,8 +1147,7 @@ export const PINYIN_LIST = [
     icon: '🧵',
     tones: [
       { tone: 'sī', mark: '一声平', word: '吐丝', char: '丝' },
-      { tone: 'sí', mark: '二声扬', word: '思考', char: '思' },
-      { tone: 'sǐ', mark: '三声拐弯', word: '水死（罕）', char: '死' },
+      { tone: 'sǐ', mark: '三声拐弯', word: '生死', char: '死' },
       { tone: 'sì', mark: '四声降', word: '四个', char: '四' }
     ],
     words: [
@@ -1165,13 +1168,13 @@ export const PINYIN_LIST = [
     mnemonic: '一件小衣 yi yi yi，大y带小i',
     icon: '👕',
     tones: [
-      { tone: 'yī', mark: '一声平', word: '一朵', char: '一' },
+      { tone: 'yī', mark: '一声平', word: '衣服', char: '衣' },
       { tone: 'yí', mark: '二声扬', word: '阿姨', char: '姨' },
-      { tone: 'yǐ', mark: '三声拐弯', word: '蚂蚁', char: '蚁' },
+      { tone: 'yǐ', mark: '三声拐弯', word: '椅子', char: '椅' },
       { tone: 'yì', mark: '四声降', word: '用意', char: '意' }
     ],
     words: [
-      { char: '一', pinyin: 'yī', word: '一个', icon: '1️⃣' },
+      { char: '衣', pinyin: 'yī', word: '衣服', icon: '👕' },
       { char: '蚁', pinyin: 'yǐ', word: '蚂蚁', icon: '🐜' },
       { char: '医', pinyin: 'yī', word: '医生', icon: '👨‍⚕️' }
     ],
@@ -1248,6 +1251,7 @@ export const PINYIN_LIST = [
   },
   {
     id: 'yue',
+    toneNote: 'yue 的常用读音为 yuē、yuè；u 表示 ü，声调标在 e 上。',
     letter: 'yue',
     uppercase: 'YUE',
     category: 'zhengti',
@@ -1257,10 +1261,8 @@ export const PINYIN_LIST = [
     mnemonic: '月光皎洁 yue yue yue，直接读出月',
     icon: '🌙',
     tones: [
-      { tone: 'yuē', mark: '一声平', word: '约会', char: '约' },
-      { tone: 'yué', mark: '二声扬', word: '月亮', char: '月' },
-      { tone: 'yuě', mark: '三声拐弯', word: '跳跃', char: '跃' },
-      { tone: 'yuè', mark: '四声降', word: '悦耳', char: '悦' }
+      { tone: 'yuē', mark: '一声平', word: '约定', char: '约' },
+      { tone: 'yuè', mark: '四声降', word: '月亮', char: '月' }
     ],
     words: [
       { char: '月', pinyin: 'yuè', word: '明月', icon: '🌕' },
@@ -1290,7 +1292,7 @@ export const PINYIN_LIST = [
       { char: '元', pinyin: 'yuán', word: '一元', icon: '🪙' },
       { char: '园', pinyin: 'yuán', word: '花园', icon: '🌷' }
     ],
-    tips: 'ün 变身前鼻整体认读，ü 去掉两点加 y。'
+    tips: 'üan 写成整体认读音节 yuan，ü 上两点省写，声调标在 a 上。'
   },
   {
     id: 'yin',

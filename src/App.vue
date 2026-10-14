@@ -7,7 +7,7 @@
       :is-autoplaying="isAutoplaying"
       @toggle-grid="showGrid = !showGrid"
       @change-font-size="fontSize = $event"
-      @open-quiz="isQuizOpen = true"
+      @open-quiz="openQuiz"
       @toggle-autoplay="toggleAutoplay"
     />
 
@@ -31,7 +31,7 @@
           <span class="text-2xl">🎧</span>
           <div>
             <div class="font-bold text-sm">磨耳朵连读中...</div>
-            <div class="text-xs opacity-90">当前正在播放: {{ currentAutoplayItem?.letter }} (读作: {{ currentAutoplayItem?.sound }})</div>
+            <div class="text-xs opacity-90">当前正在播放: {{ currentAutoplayItem?.letter }} (读作: {{ currentAutoplayItem?.spokenText }})</div>
           </div>
         </div>
         <button 
@@ -115,6 +115,9 @@
         <p class="text-gray-400">
           纯静态打包设计 · 支持离线浏览 · 完美适配 Cloudflare Pages 免费部署
         </p>
+        <a :href="`${baseUrl}audio/pinyin/来源与许可.txt`" target="_blank" rel="noopener" class="text-xs text-gray-400 underline">
+          普通话录音：Chen Wang · CC BY-SA · 来源与许可
+        </a>
       </div>
     </footer>
 
@@ -144,7 +147,9 @@ import PinyinCard from './components/PinyinCard.vue'
 import PinyinDetailModal from './components/PinyinDetailModal.vue'
 import QuizModal from './components/QuizModal.vue'
 import { CATEGORIES, PINYIN_LIST } from './data/pinyinData'
-import { speakPinyinItem } from './utils/audio'
+import { speakPinyinItem, stopSpeech } from './utils/audio'
+
+const baseUrl = import.meta.env.BASE_URL
 
 // 状态
 const activeCategory = ref('all')
@@ -196,7 +201,13 @@ function handleCategorySelect(catId) {
 }
 
 function openDetail(item) {
+  stopAutoplay()
   selectedItem.value = item
+}
+
+function openQuiz() {
+  stopAutoplay()
+  isQuizOpen.value = true
 }
 
 // 弹窗翻页（上一个、下一个）
@@ -238,6 +249,7 @@ function startAutoplay() {
 }
 
 function stopAutoplay() {
+  stopSpeech()
   isAutoplaying.value = false
   currentAutoplayItem.value = null
   if (autoplayTimer) {
